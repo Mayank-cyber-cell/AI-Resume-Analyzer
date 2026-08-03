@@ -24,3 +24,20 @@
     align-items: center;
     justify-content: center;
 }
+.sidebarTopContent{
+    font-size: 20px;
+}
+
+.sidebarOptionblock{
+    margin-top: 30px;
+}
+
+.sidebarOption{
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
