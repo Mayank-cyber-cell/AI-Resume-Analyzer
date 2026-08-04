@@ -35,9 +35,11 @@
 .sidebarOption{
     padding: 20px;
     display: flex;
+    gap: 10px;
     align-items: center;
-    font-size: 20px;
+    font-size: 21px;
     cursor: pointer;
     color: #fff;
     text-decoration: none;
 }
+
