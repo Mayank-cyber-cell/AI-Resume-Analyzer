@@ -5,7 +5,11 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 const sidebar = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   return (
     <div className={styles.sidebar}>
       <div className={styles.sidebarIcon}>
@@ -15,20 +19,20 @@ const sidebar = () => {
 
       <div className={styles.sidebarOptionblock}>
 
-        <div className={styles.sidebarOption}>
+        <Link to={"/dashboard"} className={[styles.sidebarOption, location.pathname === "/dashboard"?styles.selectedOption:null].join(" ")}>
           <DashboardCustomizeIcon sx={{ fontSize: 28 }} />
           <div>Dashboard</div>
-        </div>
+        </Link>
 
-        <div className={styles.sidebarOption}>
+        <Link to={"/history"} className={[styles.sidebarOption, location.pathname === "/history"?styles.selectedOption:null].join(" ")}>
           <ManageHistoryIcon sx={{ fontSize: 28 }} />
           <div>History</div>
-        </div>
+        </Link>
 
-        <div className={styles.sidebarOption}>
+        <Link to={"/admin"} className={[styles.sidebarOption, location.pathname === "/admin"?styles.selectedOption:null].join(" ")}>
           <AdminPanelSettingsIcon sx={{ fontSize: 28 }} />
           <div>Admin</div>
-        </div>
+        </Link>
 
         <div className={styles.sidebarOption}>
           <LogoutIcon sx={{ fontSize: 28 }} />

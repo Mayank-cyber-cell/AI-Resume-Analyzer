@@ -1,20 +1,9 @@
 .sidebar {
-    width: 320px;             
-    min-width: 280px;
+    flex: 0.2;
+    background-color: #0b0b5a;
+    color: white;
     height: 100vh;
-    background: #06066b;      
-    color: #fff;
-
-    position: fixed;
-    top: 0;
-    left: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    padding: 20px;
-    box-sizing: border-box;
-    overflow-y: auto;
+    flex-shrink: 0;
 }
 
 .sidebarIcon{
@@ -43,3 +32,6 @@
     text-decoration: none;
 }
 
+.selectedOption{
+    background-color: #462ac2;
+}
