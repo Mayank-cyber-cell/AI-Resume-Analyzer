@@ -50,7 +50,7 @@ const DashBoard = () => {
             src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80"
             alt="Profile"
           />
-          <h3 className={styles.profileName}>CodingHunger</h3>
+          <h3 className={styles.profileName}>Mayank Shah</h3>
         </section>
 
         <section className={styles.resultCard}>
