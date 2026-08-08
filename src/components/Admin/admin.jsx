@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './admin.module.css'
 import { Skeleton } from '@mui/material'
+import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 const admin = () => {
   return (
     <div className={styles.Admin}>
@@ -65,4 +66,4 @@ const admin = () => {
   )
 }
 
-export default admin
+export default withAUTHHOC(admin)

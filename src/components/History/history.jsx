@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './history.module.css'
 import { Skeleton } from '@mui/material'
+import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 function History() {
   return (
     <div className={styles.history}>
@@ -87,4 +88,4 @@ function History() {
   )
 }
 
-export default History
+export default withAUTHHOC(History)

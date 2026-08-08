@@ -1,6 +1,7 @@
 import React from 'react'
 import styles from './DashBoard.module.css'
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 const DashBoard = () => {
   return (
     <div className={styles.dashboard}>
@@ -73,4 +74,4 @@ const DashBoard = () => {
   )
 }
 
-export default DashBoard
+export default withAUTHHOC(DashBoard)

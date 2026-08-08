@@ -8,7 +8,7 @@ import { Routes, Route } from 'react-router-dom'
 import DashBoard from './components/DashBoard/DashBoard'
 import History from './components/History/history'
 import Admin from './components/Admin/admin'
-
+import Login from './components/Login/login'
 function App() {
   const [count, setCount] = useState(0)
 
@@ -16,9 +16,11 @@ function App() {
     <div className="App">
       <Sidebar />
       <Routes>
+        <Route path="/" element={<Login />} />
         <Route path="/dashboard" element={<DashBoard/>} />
         <Route path="/history" element={<History/>} />
         <Route path="/admin" element={<Admin/>} />
+      
       </Routes>
     </div>
   )
