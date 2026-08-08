@@ -1,0 +1,92 @@
+.history {
+    flex: 0.8;
+    min-height: 100vh;
+    height: auto;
+    overflow: auto;
+    padding: 36px 40px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+
+.HistoryCardBlock {
+    width: 100%;
+    display: grid;
+    gap: 22px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: start;
+}
+
+.HistoryCardBlock > :first-child {
+    min-height: 120px;
+    border-radius: 24px;
+    background: #ededf2;
+    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
+}
+
+.HistoryCard {
+    width: 100%;
+    min-height: 390px;
+    background: #fff;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+    border-radius: 24px;
+    padding: 22px 20px 18px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.CardPercentage {
+    font-size: 28px;
+    font-weight: 500;
+    line-height: 1;
+    color: #111;
+}
+
+.HistoryCard h2 {
+    margin: 6px 0 0;
+    font-size: 28px;
+    line-height: 1.06;
+    letter-spacing: -0.03em;
+}
+
+.HistoryCard p {
+    margin: 0;
+}
+
+.HistoryCard p:nth-of-type(1) {
+    font-size: 14px;
+    word-break: break-word;
+}
+
+.HistoryCard p:nth-of-type(2) {
+    flex: 1;
+    font-size: 15px;
+    line-height: 1.55;
+    color: #1c1c1c;
+}
+
+.HistoryCard p:nth-of-type(3) {
+    font-size: 14px;
+    color: #222;
+}
+
+@media screen and (max-width: 1200px) {
+    .HistoryCardBlock {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .history {
+        padding: 20px;
+    }
+
+    .HistoryCardBlock {
+        grid-template-columns: 1fr;
+    }
+
+    .HistoryCard {
+        min-height: 0;
+    }
+}
