@@ -3,9 +3,10 @@ import {useNavigate} from 'react-router-dom';
 import { AuthContext } from '../AuthContext';
 
 export const withAUTHHOC = (WrappedComponent) => {
-    const {setLogin} = useContext(AuthContext);
+    
     return (props)=>{
         const navigate = useNavigate();
+        const {setLogin} = useContext(AuthContext);
         useEffect(()=>{
             const isLogin = localStorage.getItem('isLogin');
             if(!isLogin){
