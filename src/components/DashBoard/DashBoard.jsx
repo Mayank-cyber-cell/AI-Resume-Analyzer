@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './DashBoard.module.css'
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
+import { Skeleton } from '@mui/material'
 const DashBoard = () => {
   return (
     <div className={styles.dashboard}>
@@ -55,6 +56,11 @@ const DashBoard = () => {
         </section>
 
         <section className={styles.resultCard}>
+          <Skeleton
+          variant="rectangular"
+          width={210}
+          height={333}
+          sx={{ borderRadius: '20px' }} />
           <h2 className={styles.cardHeading}>Result</h2>
           <div className={styles.scoreRow}>
             <div className={styles.scoreValue}>75%</div>
