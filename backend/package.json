@@ -1,0 +1,20 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Backend for AI resume analyser",
+  "homepage": "https://github.com/Mayank-cyber-cell/AI-Resume-Analyzer#readme",
+  "bugs": {
+    "url": "https://github.com/Mayank-cyber-cell/AI-Resume-Analyzer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mayank-cyber-cell/AI-Resume-Analyzer.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
