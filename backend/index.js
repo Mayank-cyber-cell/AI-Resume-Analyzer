@@ -5,7 +5,7 @@ const PORT = 4000;
 
 require("./connection.js");
 app.get("/", (req, res) => {
-  res.send("Hello, Thr Backend is working properly");
+  res.send("Hello, The Backend is working properly");
 });
 
 app.listen(PORT, () => {
