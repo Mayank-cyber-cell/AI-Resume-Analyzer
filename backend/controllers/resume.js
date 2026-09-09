@@ -72,3 +72,25 @@ exports.addResume = async (req, res) => {
         res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+exports.getallresumeforuser = async (req, res) => {
+    try {
+        const { user } = req.params;
+        let resumes = await ResumeModel.find({ user }).sort({ createdAt: -1 });
+        return res.status(200).json({ message: "Resumes retrieved successfully", resumes: resumes });
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
+exports.getResumeforadmin = async (req, res) => {
+    try {
+        let resumes = await ResumeModel.find({}).sort({ createdAt: -1 });     
+        return res.status(200).json({ message: "Resumes retrieved successfully", resumes: resumes });
+    }
+    catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: 'Internal server error' });
+    }
+}
