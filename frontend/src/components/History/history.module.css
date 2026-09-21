@@ -8,6 +8,18 @@
     box-sizing: border-box;
 }
 
+.pageTitle {
+    font-size: 32px;
+    margin: 0 0 24px;
+    letter-spacing: -0.02em;
+}
+
+.statusMsg {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 24px;
+}
+
 .HistoryCardBlock {
     width: 100%;
     display: grid;
@@ -16,16 +28,9 @@
     align-items: start;
 }
 
-.HistoryCardBlock > :first-child {
-    min-height: 120px;
-    border-radius: 24px;
-    background: #ededf2;
-    box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.03);
-}
-
 .HistoryCard {
     width: 100%;
-    min-height: 390px;
+    min-height: 240px;
     background: #fff;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
     border-radius: 24px;
@@ -33,42 +38,40 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 10px;
 }
 
 .CardPercentage {
     font-size: 28px;
-    font-weight: 500;
+    font-weight: 700;
     line-height: 1;
     color: #111;
 }
 
 .HistoryCard h2 {
-    margin: 6px 0 0;
-    font-size: 28px;
-    line-height: 1.06;
-    letter-spacing: -0.03em;
-}
-
-.HistoryCard p {
-    margin: 0;
-}
-
-.HistoryCard p:nth-of-type(1) {
-    font-size: 14px;
+    margin: 4px 0 0;
+    font-size: 22px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     word-break: break-word;
 }
 
-.HistoryCard p:nth-of-type(2) {
-    flex: 1;
-    font-size: 15px;
-    line-height: 1.55;
-    color: #1c1c1c;
+.jobDesc {
+    font-size: 14px;
+    color: #666;
+    word-break: break-word;
 }
 
-.HistoryCard p:nth-of-type(3) {
+.feedback {
+    flex: 1;
     font-size: 14px;
-    color: #222;
+    line-height: 1.55;
+    color: #333;
+}
+
+.dateRow {
+    font-size: 13px;
+    color: #555;
 }
 
 @media screen and (max-width: 1200px) {

@@ -1,0 +1,299 @@
+.builder {
+    flex: 1;
+    min-height: 100vh;
+    height: auto;
+    overflow: auto;
+    padding: 36px 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 32px;
+    background: #f5f5f5;
+    box-sizing: border-box;
+}
+
+.formPanel {
+    min-width: 0;
+    padding: 26px 30px 34px;
+    border-radius: 24px;
+    background: #f7f8fc;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.10);
+}
+
+.header {
+    margin-bottom: 28px;
+}
+
+.headerKicker {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+}
+
+.headerTitle {
+    margin: 0;
+    font-size: 42px;
+    line-height: 1;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+}
+
+.headerSubtitle {
+    margin: 10px 0 0;
+    font-size: 16px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.sectionCard {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.06);
+    padding: 20px 22px;
+    margin-bottom: 20px;
+}
+
+.sectionHeading {
+    margin: 0 0 14px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.sectionHeaderRow {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fieldRow {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.field label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #444;
+}
+
+.field input,
+.field textarea,
+.sectionCard > input,
+.sectionCard > textarea {
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    padding: 10px 14px;
+    box-sizing: border-box;
+    font: inherit;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s;
+    background: #fff;
+    resize: vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.sectionCard > input:focus,
+.sectionCard > textarea:focus {
+    border-color: #f94a6b;
+}
+
+.entryCard {
+    background: #f9f9fc;
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-top: 12px;
+}
+
+.entryTop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.entryLabel {
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.addBtn {
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.addBtn:hover {
+    opacity: 0.85;
+}
+
+.removeBtn {
+    background: transparent;
+    color: #c0392b;
+    border: 1px solid #c0392b;
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.entryCard .field {
+    margin-bottom: 8px;
+}
+
+.entryCard .field:last-child {
+    margin-bottom: 0;
+}
+
+.buildBtn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    border: 2px solid #111;
+    background: linear-gradient(90deg, #fca326 0%, #f94a6b 100%);
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 24px;
+    padding: 18px;
+    margin-top: 6px;
+    transition: opacity 0.2s;
+}
+
+.buildBtn:hover {
+    opacity: 0.92;
+}
+
+.buildBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.errorMsg {
+    background: #fff0f0;
+    color: #c0392b;
+    border-radius: 16px;
+    padding: 14px 20px;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+
+.previewPanel {
+    min-width: 0;
+    background: #fff;
+    border-radius: 24px;
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.08);
+    padding: 22px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: sticky;
+    top: 36px;
+    max-height: calc(100vh - 72px);
+    overflow: auto;
+}
+
+.previewHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cardHeading {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.downloadBtn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.downloadBtn:hover {
+    opacity: 0.85;
+}
+
+.previewBody {
+    flex: 1;
+    overflow: auto;
+}
+
+.loadingText {
+    color: #555;
+    font-style: italic;
+}
+
+.placeholderText {
+    color: #777;
+    line-height: 1.5;
+    font-size: 15px;
+}
+
+.resumeOutput {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0;
+    color: #222;
+    background: #f9f9fc;
+    padding: 16px;
+    border-radius: 12px;
+}
+
+@media screen and (max-width: 1180px) {
+    .builder {
+        grid-template-columns: 1fr;
+    }
+
+    .previewPanel {
+        position: static;
+        max-height: none;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .builder {
+        padding: 18px;
+    }
+
+    .formPanel {
+        padding: 20px 18px 24px;
+    }
+
+    .headerTitle {
+        font-size: 32px;
+    }
+
+    .fieldRow {
+        grid-template-columns: 1fr;
+    }
+}

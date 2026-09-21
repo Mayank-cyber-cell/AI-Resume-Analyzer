@@ -210,6 +210,27 @@
     line-height: 1.5;
 }
 
+.errorMsg {
+    background: #fff0f0;
+    color: #c0392b;
+    border-radius: 16px;
+    padding: 14px 20px;
+    margin-top: 18px;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+.loadingText {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.analyzeCircle:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 @media screen and (max-width: 1180px) {
     .dashboard {
         grid-template-columns: 1fr;

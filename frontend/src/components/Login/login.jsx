@@ -22,7 +22,7 @@ const Login = () => {
         photoURL: user.photoURL,
       }
 
-      await axios.post('/api/users', userData).then((response) => {
+      await axios.post('/api/user', userData).then((response) => {
         setUserInfo(response.data.user);
         localStorage.setItem('userInfo', JSON.stringify(response.data.user));
       }).catch(err => {

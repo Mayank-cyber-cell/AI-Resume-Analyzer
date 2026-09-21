@@ -1,89 +1,58 @@
-import React from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from './history.module.css'
-import { Skeleton } from '@mui/material'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
+import { AuthContext } from '../../utils/AuthContext';
+import axios from '../../utils/HOC/axios';
+
 function History() {
+  const { userInfo } = useContext(AuthContext);
+  const [resumes, setResumes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchResumes = async () => {
+      if (!userInfo) return;
+      try {
+        const response = await axios.get(`/api/resume/get/${userInfo.email}`);
+        setResumes(response.data.resumes || []);
+      } catch (err) {
+        console.error(err);
+        setError('Failed to load history.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchResumes();
+  }, [userInfo]);
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '';
+    const d = new Date(dateStr);
+    return d.toLocaleDateString();
+  };
+
   return (
     <div className={styles.history}>
+      <h2 className={styles.pageTitle}>Your Resume History</h2>
+      {loading && <div className={styles.statusMsg}>Loading your history...</div>}
+      {error && <div className={styles.statusMsg}>{error}</div>}
+      {!loading && !error && resumes.length === 0 && (
+        <div className={styles.statusMsg}>No resumes analyzed yet. Go to Dashboard to analyze one!</div>
+      )}
       <div className={styles.HistoryCardBlock}>
-
-        <Skeleton
-          variant="rectangular"
-          width={210}
-          height={444}
-          sx={{ borderRadius: '20px' }} />
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
+        {!loading && resumes.map((r) => (
+          <div className={styles.HistoryCard} key={r._id}>
+            <div className={styles.CardPercentage}>
+              {r.score != null ? `${r.score}%` : 'N/A'}
+            </div>
+            <h2>{r.resume_name}</h2>
+            <p className={styles.jobDesc}>Job: {r.job_desc?.substring(0, 80)}{r.job_desc?.length > 80 ? '...' : ''}</p>
+            <p className={styles.feedback}>{r.feedback}</p>
+            <p className={styles.dateRow}>Dated: {formatDate(r.createdAt)}</p>
           </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
-        <div className={styles.HistoryCard}>
-          <div className={styles.CardPercentage}>
-            88%
-          </div>
-          <h2>Frontend Development</h2>
-          <p>Resume Name : Resume.pdf</p>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ut ad maiores consequatur vero dicta! Aspernatur, ducimus culpa? Odit, amet ullam. Consequatur vitae dolor obcaecati dolores doloremque soluta? Autem quasi nostrum aliquam fuga debitis incidunt et quidem harum? Ipsam at, illum fugiat autem fuga repudiandae, perferendis aperiam illo doloremque nemo nulla eum rem, doloribus assumenda dolorum eos voluptatum ipsum odit?</p>
-          <p>Dated :2069-01-01</p>
-        </div>
-
+        ))}
       </div>
-
     </div>
   )
 }

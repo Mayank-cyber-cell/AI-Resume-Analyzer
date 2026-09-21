@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
   
 const resumeSchema = new mongoose.Schema({
-    userId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
+    user: {
+        type: String,
         required: true
     },
     resume_name: {
@@ -15,7 +14,7 @@ const resumeSchema = new mongoose.Schema({
         required: true
     },
     score: {
-        type: String,
+        type: Number,
     },
     feedback: {
         type: String,

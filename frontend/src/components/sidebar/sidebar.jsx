@@ -5,6 +5,7 @@ import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
 import ManageHistoryIcon from '@mui/icons-material/ManageHistory';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
+import BuildIcon from '@mui/icons-material/Build';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 const sidebar = () => {
   const location = useLocation();
@@ -27,6 +28,11 @@ const sidebar = () => {
         <Link to={"/history"} className={[styles.sidebarOption, location.pathname === "/history"?styles.selectedOption:null].join(" ")}>
           <ManageHistoryIcon sx={{ fontSize: 28 }} />
           <div>History</div>
+        </Link>
+
+        <Link to={"/builder"} className={[styles.sidebarOption, location.pathname === "/builder"?styles.selectedOption:null].join(" ")}>
+          <BuildIcon sx={{ fontSize: 28 }} />
+          <div>Resume Builder</div>
         </Link>
 
         <Link to={"/admin"} className={[styles.sidebarOption, location.pathname === "/admin"?styles.selectedOption:null].join(" ")}>
