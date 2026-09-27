@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import styles from './login.module.css'
 import KeyIcon from '@mui/icons-material/Key';
 import GoogleIcon from '@mui/icons-material/Google';
@@ -11,6 +11,10 @@ import axios from '../../utils/HOC/axios';
 const Login = () => {
   const { islogin, setLogin, userInfo, setUserInfo } = useContext(AuthContext);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (islogin) navigate('/dashboard');
+  }, [islogin, navigate]);
 
   const handlelogin = async () => {
     try {

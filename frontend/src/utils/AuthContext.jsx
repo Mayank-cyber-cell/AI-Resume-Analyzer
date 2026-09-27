@@ -6,7 +6,7 @@ const AuthProvider = ({children})=>{
 
     var login = localStorage.getItem('isLogin');
     var userInfoData = localStorage.getItem('userInfo');
-    const [islogin,setLogin] = useState(login?login:false);
+    const [islogin,setLogin] = useState(login?login==='true':false);
     const [userInfo,setUserInfo] = useState(userInfoData?JSON.parse(userInfoData):null);
 
     return (

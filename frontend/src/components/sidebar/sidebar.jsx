@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import styles from './sidebar.module.css'
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
@@ -7,9 +7,19 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BuildIcon from '@mui/icons-material/Build';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../utils/AuthContext';
 const sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { setLogin, setUserInfo } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    localStorage.removeItem('isLogin');
+    localStorage.removeItem('userInfo');
+    setLogin(false);
+    setUserInfo(null);
+    navigate('/');
+  };
 
   return (
     <div className={styles.sidebar}>
@@ -40,7 +50,7 @@ const sidebar = () => {
           <div>Admin</div>
         </Link>
 
-        <div className={styles.sidebarOption}>
+        <div className={styles.sidebarOption} onClick={handleLogout}>
           <LogoutIcon sx={{ fontSize: 28 }} />
           <div>LogOut</div>
         </div>
