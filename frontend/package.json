@@ -14,8 +14,10 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
+    "@supabase/supabase-js": "^2.117.2",
     "axios": "^1.20.0",
     "firebase": "^12.17.1",
+    "pdfjs-dist": "^6.3.289",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router-dom": "^7.11.0"

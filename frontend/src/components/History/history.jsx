@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import styles from './history.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 import { AuthContext } from '../../utils/AuthContext';
-import axios from '../../utils/HOC/axios';
+import { supabase } from '../../utils/supabaseClient';
 
 function History() {
   const { userInfo } = useContext(AuthContext);
@@ -14,8 +14,14 @@ function History() {
     const fetchResumes = async () => {
       if (!userInfo) return;
       try {
-        const response = await axios.get(`/api/resume/get/${userInfo.email}`);
-        setResumes(response.data.resumes || []);
+        const { data, error: fetchError } = await supabase
+          .from('resumes')
+          .select('*')
+          .eq('user_email', userInfo.email)
+          .order('created_at', { ascending: false });
+
+        if (fetchError) throw fetchError;
+        setResumes(data || []);
       } catch (err) {
         console.error(err);
         setError('Failed to load history.');
@@ -28,8 +34,7 @@ function History() {
 
   const formatDate = (dateStr) => {
     if (!dateStr) return '';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString();
+    return new Date(dateStr).toLocaleDateString();
   };
 
   return (
@@ -42,14 +47,14 @@ function History() {
       )}
       <div className={styles.HistoryCardBlock}>
         {!loading && resumes.map((r) => (
-          <div className={styles.HistoryCard} key={r._id}>
+          <div className={styles.HistoryCard} key={r.id}>
             <div className={styles.CardPercentage}>
               {r.score != null ? `${r.score}%` : 'N/A'}
             </div>
             <h2>{r.resume_name}</h2>
             <p className={styles.jobDesc}>Job: {r.job_desc?.substring(0, 80)}{r.job_desc?.length > 80 ? '...' : ''}</p>
             <p className={styles.feedback}>{r.feedback}</p>
-            <p className={styles.dateRow}>Dated: {formatDate(r.createdAt)}</p>
+            <p className={styles.dateRow}>Dated: {formatDate(r.created_at)}</p>
           </div>
         ))}
       </div>

@@ -1,56 +1,94 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styles from './login.module.css'
 import KeyIcon from '@mui/icons-material/Key';
-import GoogleIcon from '@mui/icons-material/Google';
-import { auth, provider } from '../../utils/firebase';
-import { signInWithPopup } from 'firebase/auth';
 import { AuthContext } from '../../utils/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../utils/HOC/axios';
+import { supabase } from '../../utils/supabaseClient';
 
 const Login = () => {
-  const { islogin, setLogin, userInfo, setUserInfo } = useContext(AuthContext);
+  const { islogin } = useContext(AuthContext);
   const navigate = useNavigate();
+  const [mode, setMode] = useState('signin');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (islogin) navigate('/dashboard');
   }, [islogin, navigate]);
 
-  const handlelogin = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
+
     try {
-      const result = await signInWithPopup(auth, provider);
-      const user = result.user;
-      const userData = {
-        name: user.displayName,
-        email: user.email,
-        photoURL: user.photoURL,
+      if (mode === 'signin') {
+        const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+        if (signInError) throw signInError;
+      } else {
+        const { error: signUpError } = await supabase.auth.signUp({
+          email,
+          password,
+          options: { data: { name } }
+        });
+        if (signUpError) throw signUpError;
       }
-
-      await axios.post('/api/user', userData).then((response) => {
-        setUserInfo(response.data.user);
-        localStorage.setItem('userInfo', JSON.stringify(response.data.user));
-      }).catch(err => {
-        console.error(err);
-      });
-      
-      setLogin(true);
-      localStorage.setItem('isLogin', true);
-
       navigate('/dashboard');
     } catch (err) {
-      alert("Something went wrong while login");
-      console.log(err);
+      setError(err.message || 'Authentication failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   }
+
   return (
     <div className={styles.Login}>
       <div className={styles.loginCard}>
         <div className={styles.loginCardTitle}>
-          <h1>Login</h1>
+          <h1>{mode === 'signin' ? 'Sign In' : 'Sign Up'}</h1>
           <KeyIcon />
         </div>
-        <div className={styles.googleBtn} onClick={handlelogin}> <GoogleIcon sx={{ fontSize: 20, color: "red" }} /> Sign in with Google</div>
 
+        <form className={styles.form} onSubmit={handleSubmit}>
+          {mode === 'signup' && (
+            <input
+              type="text"
+              className={styles.input}
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
+          )}
+          <input
+            type="email"
+            className={styles.input}
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            className={styles.input}
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            minLength={6}
+          />
+          {error && <div className={styles.error}>{error}</div>}
+          <button type="submit" className={styles.submitBtn} disabled={loading}>
+            {loading ? 'Please wait...' : mode === 'signin' ? 'Sign In' : 'Create Account'}
+          </button>
+        </form>
+
+        <div className={styles.toggleMode} onClick={() => { setMode(mode === 'signin' ? 'signup' : 'signin'); setError(null); }}>
+          {mode === 'signin' ? "Don't have an account? Sign Up" : 'Already have an account? Sign In'}
+        </div>
       </div>
     </div>
   )

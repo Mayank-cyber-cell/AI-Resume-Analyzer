@@ -8,14 +8,15 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BuildIcon from '@mui/icons-material/Build';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../utils/AuthContext';
+import { supabase } from '../../utils/supabaseClient';
+
 const sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { setLogin, setUserInfo } = useContext(AuthContext);
 
-  const handleLogout = () => {
-    localStorage.removeItem('isLogin');
-    localStorage.removeItem('userInfo');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     setLogin(false);
     setUserInfo(null);
     navigate('/');

@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import styles from './admin.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
-import axios from '../../utils/HOC/axios';
+import { AuthContext } from '../../utils/AuthContext';
+import { supabase } from '../../utils/supabaseClient';
 
 const admin = () => {
+  const { userInfo } = useContext(AuthContext);
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -11,8 +13,13 @@ const admin = () => {
   useEffect(() => {
     const fetchAll = async () => {
       try {
-        const response = await axios.get('/api/resume/get');
-        setResumes(response.data.resumes || []);
+        const { data, error: fetchError } = await supabase
+          .from('resumes')
+          .select('*')
+          .order('created_at', { ascending: false });
+
+        if (fetchError) throw fetchError;
+        setResumes(data || []);
       } catch (err) {
         console.error(err);
         setError('Failed to load data.');
@@ -39,12 +46,12 @@ const admin = () => {
         )}
         <div className={styles.AdminBlock}>
           {!loading && resumes.map((r) => (
-            <div className={styles.AdminCard} key={r._id}>
+            <div className={styles.AdminCard} key={r.id}>
               <h3>{r.resume_name}</h3>
-              <p className={styles.userLine}>{r.user}</p>
+              <p className={styles.userLine}>{r.user_email}</p>
               <p className={styles.scoreLine}>Score: {r.score != null ? `${r.score}%` : 'N/A'}</p>
               <p className={styles.feedbackLine}>{r.feedback}</p>
-              <p className={styles.dateLine}>Date: {formatDate(r.createdAt)}</p>
+              <p className={styles.dateLine}>Date: {formatDate(r.created_at)}</p>
             </div>
           ))}
         </div>

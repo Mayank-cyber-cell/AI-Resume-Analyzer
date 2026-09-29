@@ -5,48 +5,110 @@
     width: 100vw;
     height: 100vh;
     background: rgba(255, 255, 255, 0.2);
-    /* semi-transparent */
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    /* for Safari */
-    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.loginCard{
-    background-color: black;
-    padding: 20px;
-    width: 30%;
-    border-radius: 20px;
+.loginCard {
+    background-color: #0b0b5a;
+    padding: 32px 28px;
+    width: 380px;
+    max-width: 90vw;
+    border-radius: 24px;
     color: white;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
 }
 
-.loginCardTitle{
+.loginCardTitle {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    margin-bottom: 24px;
 }
 
-.googleBtn{
-    padding: 20px;
-    box-sizing: border-box;
-    width: 100%;
-    background-color: white;
-    color: black;
-    border-radius: 30px;
-    font-size: 22px;
+.loginCardTitle h1 {
+    font-size: 28px;
+    margin: 0;
+}
+
+.form {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    cursor: pointer;
+    flex-direction: column;
+    gap: 14px;
 }
 
-@media screen and (max-width:780px){
-    .loginCard{
-        width: 80%;
+.input {
+    width: 100%;
+    padding: 14px 16px;
+    border-radius: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.08);
+    color: white;
+    font-size: 16px;
+    box-sizing: border-box;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.input:focus {
+    border-color: #fca326;
+}
+
+.error {
+    background: rgba(192, 57, 43, 0.25);
+    border: 1px solid rgba(192, 57, 43, 0.5);
+    color: #ffcccc;
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.submitBtn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 28px;
+    background: linear-gradient(90deg, #fca326 0%, #f94a6b 100%);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s;
+    margin-top: 4px;
+}
+
+.submitBtn:hover {
+    opacity: 0.92;
+}
+
+.submitBtn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.toggleMode {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.toggleMode:hover {
+    color: white;
+}
+
+@media screen and (max-width: 780px) {
+    .loginCard {
+        width: 90%;
     }
 }

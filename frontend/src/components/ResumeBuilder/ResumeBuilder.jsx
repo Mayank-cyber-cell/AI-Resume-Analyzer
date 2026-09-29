@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import styles from './ResumeBuilder.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 import { AuthContext } from '../../utils/AuthContext';
-import axios from '../../utils/HOC/axios';
+import { supabase } from '../../utils/supabaseClient';
 import AutoFixHighIcon from '@mui/icons-material/AutoFixHigh';
 import DownloadIcon from '@mui/icons-material/Download';
 
@@ -60,15 +60,33 @@ const ResumeBuilder = () => {
         projects,
       };
 
-      const response = await axios.post('/api/resume/buildResume', {
-        user: userInfo?.email || email,
-        details,
-      }, { timeout: 60000 });
+      const { data: aiData, error: aiError } = await supabase.functions.invoke('build-resume', {
+        body: JSON.stringify({ details }),
+      });
 
-      setResumeText(response.data.resumeText);
+      if (aiError) throw aiError;
+      if (aiData?.error) throw new Error(aiData.error);
+
+      const generatedText = aiData.resumeText;
+
+      const { error: insertError } = await supabase
+        .from('resumes')
+        .insert({
+          user_email: userInfo?.email || email,
+          user_name: userInfo?.name || name,
+          resume_name: `${name} - ATS Resume`,
+          job_desc: 'ATS-friendly resume build',
+          score: null,
+          feedback: generatedText,
+          type: 'built',
+        });
+
+      if (insertError) throw insertError;
+
+      setResumeText(generatedText);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Resume generation failed. Please try again.');
+      setError(err.message || 'Resume generation failed. Please try again.');
     } finally {
       setLoading(false);
     }

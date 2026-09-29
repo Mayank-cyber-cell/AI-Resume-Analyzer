@@ -3,8 +3,14 @@ import styles from './Dashboard.module.css'
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 import { AuthContext } from '../../utils/AuthContext';
-import axios from '../../utils/HOC/axios';
+import { supabase } from '../../utils/supabaseClient';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import * as pdfjsLib from 'pdfjs-dist';
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = new URL(
+  'pdfjs-dist/build/pdf.worker.min.mjs',
+  import.meta.url
+).toString();
 
 const DashBoard = () => {
   const { userInfo } = useContext(AuthContext);
@@ -23,6 +29,18 @@ const DashBoard = () => {
     }
   };
 
+  const extractPdfText = async (file) => {
+    const arrayBuffer = await file.arrayBuffer();
+    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+    let fullText = '';
+    for (let i = 1; i <= pdf.numPages; i++) {
+      const page = await pdf.getPage(i);
+      const textContent = await page.getTextContent();
+      fullText += textContent.items.map((item) => item.str).join(' ') + '\n';
+    }
+    return fullText.trim();
+  };
+
   const handleAnalyze = async () => {
     setError(null);
     if (!file) { setError('Please upload your resume PDF first.'); return; }
@@ -32,19 +50,35 @@ const DashBoard = () => {
     setLoading(true);
     setResult(null);
     try {
-      const formData = new FormData();
-      formData.append('resume', file);
-      formData.append('job_desc', jobDesc);
-      formData.append('user', userInfo.email);
+      const resumeText = await extractPdfText(file);
 
-      const response = await axios.post('/api/resume/addResume', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 60000,
+      const { data: aiData, error: aiError } = await supabase.functions.invoke('analyze-resume', {
+        body: JSON.stringify({ resumeText, jobDesc }),
       });
-      setResult(response.data.data);
+
+      if (aiError) throw aiError;
+      if (aiData?.error) throw new Error(aiData.error);
+
+      const { data: insertData, error: insertError } = await supabase
+        .from('resumes')
+        .insert({
+          user_email: userInfo.email,
+          user_name: userInfo.name,
+          resume_name: fileName,
+          job_desc: jobDesc,
+          score: aiData.score,
+          feedback: aiData.feedback,
+          type: 'analysis',
+        })
+        .select()
+        .single();
+
+      if (insertError) throw insertError;
+
+      setResult(insertData);
     } catch (err) {
       console.error(err);
-      setError(err.response?.data?.message || 'Analysis failed. Please try again.');
+      setError(err.message || 'Analysis failed. Please try again.');
     } finally {
       setLoading(false);
     }
