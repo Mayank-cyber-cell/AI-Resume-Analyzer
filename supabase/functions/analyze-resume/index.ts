@@ -14,7 +14,7 @@ Deno.serve(async (req: Request) => {
 
     if (!resumeText || !jobDesc) {
       return new Response(
-        JSON.stringify({ error: "resumeText and jobDesc are required" }),
+        JSON.stringify({ error: "resumeText and JobDesc are required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
