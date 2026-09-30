@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import styles from './ResumeBuilder.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 import { AuthContext } from '../../utils/AuthContext';
@@ -61,7 +61,7 @@ const ResumeBuilder = () => {
       };
 
       const { data: aiData, error: aiError } = await supabase.functions.invoke('build-resume', {
-        body: JSON.stringify({ details }),
+        body: { details },
       });
 
       if (aiError) throw aiError;

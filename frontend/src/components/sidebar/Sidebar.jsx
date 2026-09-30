@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import styles from './sidebar.module.css'
 import DocumentScannerIcon from '@mui/icons-material/DocumentScanner';
 import DashboardCustomizeIcon from '@mui/icons-material/DashboardCustomize';
@@ -10,7 +10,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../utils/AuthContext';
 import { supabase } from '../../utils/supabaseClient';
 
-const sidebar = () => {
+const Sidebar = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { setLogin, setUserInfo } = useContext(AuthContext);
@@ -61,4 +61,4 @@ const sidebar = () => {
   )
 }
 
-export default sidebar
+export default Sidebar

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import styles from './history.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
 import { AuthContext } from '../../utils/AuthContext';

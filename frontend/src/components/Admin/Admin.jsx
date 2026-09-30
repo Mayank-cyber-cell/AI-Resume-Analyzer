@@ -1,11 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './admin.module.css'
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
-import { AuthContext } from '../../utils/AuthContext';
 import { supabase } from '../../utils/supabaseClient';
 
-const admin = () => {
-  const { userInfo } = useContext(AuthContext);
+const Admin = () => {
   const [resumes, setResumes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -60,4 +58,4 @@ const admin = () => {
   )
 }
 
-export default withAUTHHOC(admin)
+export default withAUTHHOC(Admin)

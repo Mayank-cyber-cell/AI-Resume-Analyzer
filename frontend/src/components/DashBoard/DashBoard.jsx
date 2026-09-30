@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import styles from './Dashboard.module.css'
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
 import { withAUTHHOC } from '../../utils/HOC/withAUTHHOC';
@@ -53,7 +53,7 @@ const DashBoard = () => {
       const resumeText = await extractPdfText(file);
 
       const { data: aiData, error: aiError } = await supabase.functions.invoke('analyze-resume', {
-        body: JSON.stringify({ resumeText, jobDesc }),
+        body: { resumeText, jobDesc },
       });
 
       if (aiError) throw aiError;

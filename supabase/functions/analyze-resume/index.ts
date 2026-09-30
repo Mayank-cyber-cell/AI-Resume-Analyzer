@@ -14,7 +14,7 @@ Deno.serve(async (req: Request) => {
 
     if (!resumeText || !jobDesc) {
       return new Response(
-        JSON.stringify({ error: "resumeText and JobDesc are required" }),
+        JSON.stringify({ error: "resumeText and jobDesc are required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } },
       );
     }
@@ -55,6 +55,7 @@ Reason: ...`;
 
     if (!aiResponse.ok) {
       const errText = await aiResponse.text();
+      console.error("Cohere API error:", errText);
       return new Response(
         JSON.stringify({ error: "AI analysis failed. Please try again." }),
         { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
@@ -75,6 +76,7 @@ Reason: ...`;
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
+    console.error("analyze-resume error:", err);
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },

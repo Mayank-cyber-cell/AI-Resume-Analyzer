@@ -49,6 +49,8 @@ ${JSON.stringify(details, null, 2)}`;
     });
 
     if (!aiResponse.ok) {
+      const errText = await aiResponse.text();
+      console.error("Cohere API error:", errText);
       return new Response(
         JSON.stringify({ error: "Resume generation failed. Please try again." }),
         { status: 502, headers: { ...corsHeaders, "Content-Type": "application/json" } },
@@ -63,6 +65,7 @@ ${JSON.stringify(details, null, 2)}`;
       { headers: { ...corsHeaders, "Content-Type": "application/json" } },
     );
   } catch (err) {
+    console.error("build-resume error:", err);
     return new Response(
       JSON.stringify({ error: "Internal server error" }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } },

@@ -1,9 +1,9 @@
 import './App.css'
-import Sidebar from './components/sidebar/sidebar'
+import Sidebar from './components/sidebar/Sidebar'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import DashBoard from './components/DashBoard/DashBoard'
 import History from './components/History/history'
-import Admin from './components/Admin/admin'
+import Admin from './components/Admin/Admin'
 import Login from './components/Login/login'
 import ResumeBuilder from './components/ResumeBuilder/ResumeBuilder'
 
