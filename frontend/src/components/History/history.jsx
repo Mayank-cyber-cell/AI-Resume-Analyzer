@@ -11,8 +11,19 @@ function History() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchResumes = async () => {
-      if (!userInfo) return;
+      if (!userInfo?.email) {
+        if (!isMounted) return;
+        setResumes([]);
+        setLoading(false);
+        return;
+      }
+
+      setLoading(true);
+      setError(null);
+
       try {
         const { data, error: fetchError } = await supabase
           .from('resumes')
@@ -21,15 +32,20 @@ function History() {
           .order('created_at', { ascending: false });
 
         if (fetchError) throw fetchError;
-        setResumes(data || []);
+        if (isMounted) setResumes(data || []);
       } catch (err) {
         console.error(err);
-        setError('Failed to load history.');
+        if (isMounted) setError('Failed to load history.');
       } finally {
-        setLoading(false);
+        if (isMounted) setLoading(false);
       }
     };
+
     fetchResumes();
+
+    return () => {
+      isMounted = false;
+    };
   }, [userInfo]);
 
   const formatDate = (dateStr) => {
