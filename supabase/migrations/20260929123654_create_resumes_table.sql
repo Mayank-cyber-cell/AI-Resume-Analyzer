@@ -41,7 +41,6 @@ CREATE TABLE IF NOT EXISTS resumes (
 
 ALTER TABLE resumes ENABLE ROW LEVEL SECURITY;
 
--- Owner-scoped SELECT
 DROP POLICY IF EXISTS "select_own_resumes" ON resumes;
 CREATE POLICY "select_own_resumes"
   ON resumes FOR SELECT
